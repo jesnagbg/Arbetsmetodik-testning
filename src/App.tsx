@@ -1,7 +1,9 @@
-import {Box, Text, Title} from '@mantine/core';
+import {Box, Title} from '@mantine/core';
 import {useState} from 'react';
 import './App.css';
+import DefinitionCard from './components/DefinitionCard';
 import SearchField from './components/SearchField';
+import {WordDefinition} from './types/WordDefinitionTypes';
 
 const fetchWordDefinition = async (word: string) => {
   const response = await fetch(
@@ -12,19 +14,12 @@ const fetchWordDefinition = async (word: string) => {
   return await parsedResponse;
 };
 
-interface WordDefinition {
-  word: string;
-  // Add other properties that the API response includes
-}
-
-//TODO: Create a component that displays the definition of a word
-
 function App() {
   const [wordData, setWordData] = useState<
-    WordDefinition[] | null
-  >(null);
+    WordDefinition[]
+  >([]);
 
-  const handleSearch = async (word: any) => {
+  const handleSearch = async (word: string) => {
     console.log('Handle search:' + word);
     const response = await fetchWordDefinition(word);
     console.log('Response:' + response);
@@ -33,14 +28,17 @@ function App() {
 
   return (
     <Box>
-      <Title order={1}>Welcome to Mantine + Vite</Title>
+      <Title order={1}>Look up a words definition</Title>
 
       <SearchField handleSearch={handleSearch} />
 
       {wordData && (
         <Box>
-          {wordData.map((entry, index) => (
-            <Text key={index}>{entry.word}</Text>
+          {wordData?.map((word, index) => (
+            <DefinitionCard
+              key={index}
+              {...word}
+            />
           ))}
         </Box>
       )}
