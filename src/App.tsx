@@ -1,17 +1,24 @@
-import {Box, Title} from '@mantine/core';
+import {Container, Flex, Title} from '@mantine/core';
 import {useState} from 'react';
-import './App.css';
 import DefinitionCard from './components/DefinitionCard';
 import SearchField from './components/SearchField';
 import {WordDefinition} from './types/WordDefinitionTypes';
 
 const fetchWordDefinition = async (word: string) => {
-  const response = await fetch(
-    `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
-  );
-  const parsedResponse = await response.json();
-  console.log(parsedResponse);
-  return await parsedResponse;
+  try {
+    const response = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const parsedResponse = response.json();
+    return parsedResponse;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 function App() {
@@ -20,29 +27,34 @@ function App() {
   >([]);
 
   const handleSearch = async (word: string) => {
-    console.log('Handle search:' + word);
     const response = await fetchWordDefinition(word);
-    console.log('Response:' + response);
     setWordData(response);
   };
 
   return (
-    <Box>
-      <Title order={1}>Look up a words definition</Title>
+    <Container my={30}>
+      <Flex
+        gap='lg'
+        justify='center'
+        align='center'
+        direction='column'
+        pb={20}>
+        <Title
+          py={10}
+          order={1}>
+          Look up a words definition
+        </Title>
+        <SearchField handleSearch={handleSearch} />
+      </Flex>
 
-      <SearchField handleSearch={handleSearch} />
-
-      {wordData && (
-        <Box>
-          {wordData?.map((word, index) => (
-            <DefinitionCard
-              key={index}
-              {...word}
-            />
-          ))}
-        </Box>
-      )}
-    </Box>
+      {wordData &&
+        wordData?.map((word, index) => (
+          <DefinitionCard
+            key={index}
+            {...word}
+          />
+        ))}
+    </Container>
   );
 }
 

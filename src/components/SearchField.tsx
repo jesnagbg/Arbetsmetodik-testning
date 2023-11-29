@@ -1,4 +1,4 @@
-import {Box, Button, TextInput} from '@mantine/core';
+import {Button, Container, TextInput} from '@mantine/core';
 import {useForm} from '@mantine/form';
 
 type SearchFieldProps = {
@@ -10,21 +10,36 @@ const SearchField = ({handleSearch}: SearchFieldProps) => {
     initialValues: {
       word: '',
     },
+    validate: {
+      word: (value) =>
+        value ? null : 'Please enter a word',
+    },
   });
 
   const handleSubmit = () => {
+    if (form.validate().hasErrors) {
+      console.log('Form has errors');
+      return;
+    }
     handleSearch(form.values.word);
-    console.log('Form values:' + form.values.word);
   };
 
   return (
-    <Box>
+    <Container>
       <TextInput
+        py={10}
+        style={{width: 400}}
         label='Enter a word'
+        radius={'md'}
+        error={form.errors.word}
         {...form.getInputProps('word')}
       />
-      <Button onClick={handleSubmit}>Get definition</Button>
-    </Box>
+      <Button
+        fullWidth
+        onClick={handleSubmit}>
+        Get definition
+      </Button>
+    </Container>
   );
 };
 
