@@ -1,18 +1,17 @@
-import {Button, Container, TextInput} from '@mantine/core';
-import {useForm} from '@mantine/form';
+import { Button, Container, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 type SearchFieldProps = {
   handleSearch: (word: string) => void;
 };
 
-const SearchField = ({handleSearch}: SearchFieldProps) => {
+const SearchField = ({ handleSearch }: SearchFieldProps) => {
   const form = useForm({
     initialValues: {
       word: '',
     },
     validate: {
-      word: (value) =>
-        value ? null : 'Please enter a word',
+      word: (value) => (value ? null : 'Please enter a word'),
     },
   });
 
@@ -22,21 +21,20 @@ const SearchField = ({handleSearch}: SearchFieldProps) => {
       return;
     }
     handleSearch(form.values.word);
+    form.reset();
   };
 
   return (
     <Container>
       <TextInput
         py={10}
-        style={{width: 400}}
-        label='Enter a word'
+        style={{ width: 400 }}
+        label="Enter a word"
         radius={'md'}
         error={form.errors.word}
         {...form.getInputProps('word')}
       />
-      <Button
-        fullWidth
-        onClick={handleSubmit}>
+      <Button fullWidth onClick={handleSubmit}>
         Get definition
       </Button>
     </Container>

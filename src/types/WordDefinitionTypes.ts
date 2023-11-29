@@ -23,4 +23,4 @@ interface Definition {
   antonyms: string[];
 }
 
-export type {Definition, Meaning, Phonetic, WordDefinition};
+export type { Definition, Meaning, Phonetic, WordDefinition };
