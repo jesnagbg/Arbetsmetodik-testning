@@ -32,7 +32,7 @@ const NymsList = ({ title, words }: NymsListProps) => {
 /**
  * Renders a section displaying the definition, examples, synonyms, and antonyms of a word.
  *
- * @param {Meaning} meaning - The meaning object containing definition, examples, synonyms, and antonyms.
+ * @param {Meaning} meaning
  * @returns A Box component with the word's definition, example sentences, and lists of synonyms and antonyms.
  */
 const MeaningSection = (meaning: Meaning) => {
@@ -59,10 +59,10 @@ const MeaningSection = (meaning: Meaning) => {
 /**
  * Displays the word, its origin, phonetic spelling, and an audio player for pronunciation.
  *
- * @param {WordDefinition} definition - The word definition object containing the word, its origin, phonetic spelling, and audio clips.
+ * @param {WordDefinition} wordDefinition
  * @returns A Box component with the word's title, origin, phonetic spelling, and audio players for each phonetic pronunciation.
  */
-const TitleSection = (definition: WordDefinition) => {
+const TitleSection = (wordDefinition: WordDefinition) => {
   return (
     <Box
       py={10}
@@ -73,12 +73,12 @@ const TitleSection = (definition: WordDefinition) => {
     >
       <Box>
         <Title order={2} style={{ textTransform: 'capitalize' }}>
-          {definition.word}
+          {wordDefinition.word}
         </Title>
-        <Text>{definition.origin}</Text>
-        <Text>{definition.phonetic}</Text>
+        <Text>{wordDefinition.origin}</Text>
+        <Text>{wordDefinition.phonetic}</Text>
       </Box>
-      {definition?.phonetics?.map(
+      {wordDefinition?.phonetics?.map(
         (phonetic, index) =>
           phonetic.audio && (
             <Box key={index}>
@@ -95,14 +95,14 @@ const TitleSection = (definition: WordDefinition) => {
 /**
  * Assembles the complete definition card for a word, including its title section and meaning sections.
  *
- * @param {WordDefinition} definition - The complete word definition object.
+ * @param {WordDefinition} wordDefinition
  * @returns A Container component with the word's title section and its meaning sections.
  */
-const DefinitionCard = (definition: WordDefinition) => {
+const DefinitionCard = (wordDefinition: WordDefinition) => {
   return (
     <Container py={20}>
-      <TitleSection {...definition} />
-      {definition?.meanings.map((meaning, index) => (
+      <TitleSection {...wordDefinition} />
+      {wordDefinition?.meanings.map((meaning, index) => (
         <MeaningSection key={index} {...meaning} />
       ))}
       <Divider mt={20} />

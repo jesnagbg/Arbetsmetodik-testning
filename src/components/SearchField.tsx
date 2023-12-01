@@ -9,7 +9,7 @@ type SearchFieldProps = {
  * A component for searching word definitions.
  * It includes an input field for the word and a submit button.
  *
- * @param {SearchFieldProps} props - The properties passed to the component.
+ * @param {SearchFieldProps} props
  * @returns A Container component containing a form with an input field and a submit button.
  */
 const SearchField = ({ handleSearch }: SearchFieldProps) => {
