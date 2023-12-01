@@ -1,5 +1,5 @@
-import { Button, Container, TextInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useState } from 'react';
+import classes from './SearchField.module.css';
 
 type SearchFieldProps = {
   handleSearch: (word: string) => void;
@@ -13,38 +13,34 @@ type SearchFieldProps = {
  * @returns A Container component containing a form with an input field and a submit button.
  */
 const SearchField = ({ handleSearch }: SearchFieldProps) => {
-  const form = useForm({
-    initialValues: {
-      word: '',
-    },
-    validate: {
-      word: (value) => (value ? null : 'Please enter a word'),
-    },
-  });
+  const [word, setWord] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = () => {
-    if (form.validate().hasErrors) {
-      console.log('Form has errors');
+    if (!word) {
+      setError('Please enter a word');
       return;
     }
-    handleSearch(form.values.word);
-    form.reset();
+
+    handleSearch(word);
+    setWord('');
+    setError(null);
   };
 
   return (
-    <Container>
-      <TextInput
-        py={10}
-        style={{ width: 400 }}
-        label="Enter a word"
-        radius={'md'}
-        error={form.errors.word}
-        {...form.getInputProps('word')}
+    <div className={classes.container}>
+      <input
+        className={classes.input}
+        type="text"
+        placeholder="Enter a word"
+        value={word}
+        onChange={(e) => setWord(e.target.value)}
       />
-      <Button fullWidth onClick={handleSubmit}>
+      {error && <div className={classes.error}>{error}</div>}
+      <button className={classes.button} onClick={handleSubmit}>
         Get definition
-      </Button>
-    </Container>
+      </button>
+    </div>
   );
 };
 
