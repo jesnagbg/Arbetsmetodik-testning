@@ -21,7 +21,14 @@ const NymsList = ({ title, words }: NymsListProps) => {
     <div>
       <h4 style={{ display: 'inline' }}>{title}: </h4>
       {words.map((word, index) => (
-        <span key={index} style={{ color: 'grey' }}>
+        <span
+          style={{
+            backgroundColor: 'white',
+            marginRight: '5px',
+            padding: '2px',
+          }}
+          key={index}
+        >
           {word}{' '}
         </span>
       ))}
@@ -62,21 +69,20 @@ const MeaningSection = (meaning: Meaning) => {
  * @returns A Box component with the word's title, origin, phonetic spelling, and audio players for each phonetic pronunciation.
  */
 const TitleSection = (wordDefinition: WordDefinition) => {
+  const firstPhonetic = wordDefinition.phonetics?.[0];
+
   return (
     <div className={classes.titleSection}>
       <div>
         <h2 style={{ textTransform: 'capitalize' }}>{wordDefinition.word}</h2>
         <p>{wordDefinition.phonetic}</p>
       </div>
-      {wordDefinition?.phonetics?.map(
-        (phonetic, index) =>
-          phonetic.audio && (
-            <div key={index}>
-              <audio controls>
-                <source src={phonetic.audio} type="audio/mpeg" />
-              </audio>
-            </div>
-          )
+      {firstPhonetic?.audio && (
+        <div>
+          <audio controls>
+            <source src={firstPhonetic.audio} type="audio/mpeg" />
+          </audio>
+        </div>
       )}
     </div>
   );
