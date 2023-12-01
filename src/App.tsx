@@ -1,8 +1,4 @@
-import { Container, Flex, Title } from '@mantine/core';
-import { useState } from 'react';
-import DefinitionCard from './components/DefinitionCard';
-import SearchField from './components/SearchField';
-import { WordDefinition } from './types/WordDefinitionTypes';
+import classes from './App.module.css';
 
 const fetchWordDefinition = async (word: string) => {
   try {
@@ -22,27 +18,25 @@ const fetchWordDefinition = async (word: string) => {
 };
 
 function App() {
-  const [wordData, setWordData] = useState<WordDefinition[]>([]);
+  // const [wordData, setWordData] = useState<WordDefinition[]>([]);
 
-  const handleSearch = async (word: string) => {
-    const response = await fetchWordDefinition(word);
-    setWordData(response);
-  };
+  // const handleSearch = async (word: string) => {
+  //   const response = await fetchWordDefinition(word);
+  //   setWordData(response);
+  // };
 
   return (
-    <Container my={30}>
-      <Flex gap="lg" justify="center" align="center" direction="column" pb={20}>
-        <Title py={10} order={1}>
-          "Not-so-broad" Dictionary
-        </Title>
-        <SearchField handleSearch={handleSearch} />
-      </Flex>
+    <div className={classes.outerContainer}>
+      <div>
+        <h1>Dictionary</h1>
+        {/* <SearchField handleSearch={handleSearch} /> */}
+      </div>
 
-      {wordData &&
+      {/* {wordData &&
         wordData?.map((word, index) => (
           <DefinitionCard key={index} {...word} />
-        ))}
-    </Container>
+        ))} */}
+    </div>
   );
 }
 
