@@ -1,5 +1,5 @@
-import { Box, Container, Divider, Text, Title } from '@mantine/core';
 import { Meaning, WordDefinition } from '../types/WordDefinitionTypes';
+import classes from './DefinitionCard.module.css';
 
 interface NymsListProps {
   title: string;
@@ -18,14 +18,14 @@ const NymsList = ({ title, words }: NymsListProps) => {
   }
 
   return (
-    <Box>
-      <Text span>{title}: </Text>
+    <div>
+      <h4 style={{ display: 'inline' }}>{title}: </h4>
       {words.map((word, index) => (
-        <Text span key={index} c={'grey'}>
+        <span key={index} style={{ color: 'grey' }}>
           {word}{' '}
-        </Text>
+        </span>
       ))}
-    </Box>
+    </div>
   );
 };
 
@@ -37,22 +37,21 @@ const NymsList = ({ title, words }: NymsListProps) => {
  */
 const MeaningSection = (meaning: Meaning) => {
   return (
-    <Box py={10}>
-      <Text fw={700} size="lg">
-        {meaning.partOfSpeech}
-      </Text>
+    <div>
+      <div>
+        <h3>{meaning.partOfSpeech}</h3>
+      </div>
       {meaning.definitions.slice(0, 3).map((definition, index) => (
-        <Box key={index}>
-          <Box py={10}>
-            <Text>{definition.definition}</Text>
-            <Text fs="italic">{definition.example}</Text>
-          </Box>
-
+        <div key={index}>
+          <ul>
+            <li>{definition.definition}</li>
+            <p style={{ fontStyle: 'italic' }}>{definition.example}</p>
+          </ul>
           <NymsList title="Synonyms" words={definition.synonyms} />
           <NymsList title="Antonyms" words={definition.antonyms} />
-        </Box>
+        </div>
       ))}
-    </Box>
+    </div>
   );
 };
 
@@ -64,31 +63,22 @@ const MeaningSection = (meaning: Meaning) => {
  */
 const TitleSection = (wordDefinition: WordDefinition) => {
   return (
-    <Box
-      py={10}
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Box>
-        <Title order={2} style={{ textTransform: 'capitalize' }}>
-          {wordDefinition.word}
-        </Title>
-        <Text>{wordDefinition.origin}</Text>
-        <Text>{wordDefinition.phonetic}</Text>
-      </Box>
+    <div className={classes.titleSection}>
+      <div>
+        <h2 style={{ textTransform: 'capitalize' }}>{wordDefinition.word}</h2>
+        <p>{wordDefinition.phonetic}</p>
+      </div>
       {wordDefinition?.phonetics?.map(
         (phonetic, index) =>
           phonetic.audio && (
-            <Box key={index}>
+            <div key={index}>
               <audio controls>
                 <source src={phonetic.audio} type="audio/mpeg" />
               </audio>
-            </Box>
+            </div>
           )
       )}
-    </Box>
+    </div>
   );
 };
 
@@ -100,13 +90,13 @@ const TitleSection = (wordDefinition: WordDefinition) => {
  */
 const DefinitionCard = (wordDefinition: WordDefinition) => {
   return (
-    <Container py={20}>
+    <div className={classes.defCardContainer}>
       <TitleSection {...wordDefinition} />
       {wordDefinition?.meanings.map((meaning, index) => (
         <MeaningSection key={index} {...meaning} />
       ))}
-      <Divider mt={20} />
-    </Container>
+      <hr style={{ marginTop: '40px' }} />
+    </div>
   );
 };
 

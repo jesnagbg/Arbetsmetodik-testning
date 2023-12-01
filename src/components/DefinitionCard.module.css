@@ -1,0 +1,12 @@
+.defCardContainer {
+  //margin-top: 30px;
+  width: 50vw;
+  padding: 0px 20px;
+}
+
+.titleSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}

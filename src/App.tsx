@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import classes from './App.module.css';
+import DefinitionCard from './components/DefinitionCard';
 import SearchField from './components/SearchField';
 import { WordDefinition } from './types/WordDefinitionTypes';
 
@@ -35,10 +36,10 @@ function App() {
         <SearchField handleSearch={handleSearch} />
       </div>
 
-      {/* {wordData &&
+      {wordData &&
         wordData?.map((word, index) => (
           <DefinitionCard key={index} {...word} />
-        ))} */}
+        ))}
     </div>
   );
 }
