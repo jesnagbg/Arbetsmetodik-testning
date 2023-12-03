@@ -61,6 +61,7 @@ describe('DefinitionCard Component', () => {
   });
 
   it('displays no more than three definitions for each "part of speech"', () => {
+    // Check that no more than three definitions are rendered for each part of speech
     mockWordDefinition.meanings.forEach((meaning) => {
       if (meaning.definitions.length > 3) {
         const fourthDefinition = meaning.definitions[3];

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest';
+import { afterAll, afterEach, beforeAll } from 'vitest';
+import { server } from '../mockups/server';
 
-// cleanup after each test
-// afterEach(() => {
-//   cleanup();
-// });
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
