@@ -3,6 +3,7 @@ import classes from './SearchField.module.css';
 
 type SearchFieldProps = {
   handleSearch: (word: string) => void;
+  errorMessage?: string | null;
 };
 
 /**
@@ -12,7 +13,7 @@ type SearchFieldProps = {
  * @param {SearchFieldProps} props
  * @returns A Container component containing a form with an input field and a submit button.
  */
-const SearchField = ({ handleSearch }: SearchFieldProps) => {
+const SearchField = ({ handleSearch, errorMessage }: SearchFieldProps) => {
   const [word, setWord] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -37,6 +38,7 @@ const SearchField = ({ handleSearch }: SearchFieldProps) => {
         onChange={(e) => setWord(e.target.value)}
       />
       {error && <div className={classes.error}>{error}</div>}
+      {errorMessage && <div className={classes.error}>{errorMessage}</div>}
       <button className={classes.button} onClick={handleSubmit}>
         Get definition
       </button>

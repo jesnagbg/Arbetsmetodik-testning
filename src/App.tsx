@@ -23,17 +23,29 @@ const fetchWordDefinition = async (word: string) => {
 
 function App() {
   const [wordData, setWordData] = useState<WordDefinition[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSearch = async (word: string) => {
-    const response = await fetchWordDefinition(word);
-    setWordData(response);
+    try {
+      const response = await fetchWordDefinition(word);
+      // Antag att API:et returnerar en tom array eller ett specifikt felmeddelande om ordet inte finns
+      if (response.length === 0) {
+        setErrorMessage('Word not found');
+      } else {
+        setWordData(response);
+        setErrorMessage(null); // Rensa tidigare felmeddelanden
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessage('Could not find a definition, please try another word');
+    }
   };
 
   return (
     <div className={classes.outerContainer}>
       <div>
         <h1>Dictionary</h1>
-        <SearchField handleSearch={handleSearch} />
+        <SearchField handleSearch={handleSearch} errorMessage={errorMessage} />
       </div>
 
       {wordData &&

@@ -27,7 +27,7 @@ export const mockWordDefinition: WordDefinition = {
             'exemplar',
             'exemplification',
           ],
-          antonyms: [],
+          antonyms: ['exception', 'atypicality'],
         },
       ],
     },
