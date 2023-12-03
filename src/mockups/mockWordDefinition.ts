@@ -29,6 +29,25 @@ export const mockWordDefinition: WordDefinition = {
           ],
           antonyms: ['exception', 'atypicality'],
         },
+        {
+          definition: 'A representation or model of something.',
+          example:
+            'The building is a perfect example of medieval architecture.',
+          synonyms: ['representation', 'model'],
+          antonyms: [],
+        },
+        {
+          definition: 'A pattern or model for making comparisons.',
+          example: 'Use the diagram as an example to solve similar problems.',
+          synonyms: ['template', 'standard'],
+          antonyms: [],
+        },
+        {
+          definition: 'An instance serving to illustrate a rule or precept.',
+          example: 'Each example serves a specific didactic purpose.',
+          synonyms: ['instance', 'case'],
+          antonyms: [],
+        },
       ],
     },
     {

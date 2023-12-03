@@ -29,14 +29,14 @@ function App() {
     try {
       const response = await fetchWordDefinition(word);
       if (response.length === 0) {
-        setErrorMessage('Word not found');
+        setErrorMessage('Could not find a definition, please try another word');
       } else {
         setWordData(response);
         setErrorMessage(null);
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage('Could not find a definition, please try another');
+      setErrorMessage('Could not find a definition, please try another word');
     }
   };
 

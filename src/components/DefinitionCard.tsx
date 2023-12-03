@@ -79,7 +79,7 @@ const TitleSection = (wordDefinition: WordDefinition) => {
       </div>
       {firstPhonetic?.audio && (
         <div>
-          <audio controls>
+          <audio controls data-testid="word-audio">
             <source src={firstPhonetic.audio} type="audio/mpeg" />
           </audio>
         </div>
