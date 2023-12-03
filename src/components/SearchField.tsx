@@ -15,17 +15,19 @@ type SearchFieldProps = {
  */
 const SearchField = ({ handleSearch, errorMessage }: SearchFieldProps) => {
   const [word, setWord] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [noWordError, setNoWordError] = useState<string | null>(null);
+
+  const error = noWordError || errorMessage;
 
   const handleSubmit = () => {
     if (!word) {
-      setError('Please enter a word');
+      setNoWordError('Please enter a word');
       return;
     }
 
     handleSearch(word);
     setWord('');
-    setError(null);
+    setNoWordError(null);
   };
 
   return (
@@ -38,7 +40,6 @@ const SearchField = ({ handleSearch, errorMessage }: SearchFieldProps) => {
         onChange={(e) => setWord(e.target.value)}
       />
       {error && <div className={classes.error}>{error}</div>}
-      {errorMessage && <div className={classes.error}>{errorMessage}</div>}
       <button className={classes.button} onClick={handleSubmit}>
         Get definition
       </button>

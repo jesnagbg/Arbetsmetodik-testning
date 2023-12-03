@@ -28,16 +28,15 @@ function App() {
   const handleSearch = async (word: string) => {
     try {
       const response = await fetchWordDefinition(word);
-      // Antag att API:et returnerar en tom array eller ett specifikt felmeddelande om ordet inte finns
       if (response.length === 0) {
         setErrorMessage('Word not found');
       } else {
         setWordData(response);
-        setErrorMessage(null); // Rensa tidigare felmeddelanden
+        setErrorMessage(null);
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage('Could not find a definition, please try another word');
+      setErrorMessage('Could not find a definition, please try another');
     }
   };
 
