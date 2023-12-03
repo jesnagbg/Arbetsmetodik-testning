@@ -1,20 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import App from '../App';
 
 describe('App Component', () => {
   const user = userEvent.setup();
 
-  it('renders with correct heading', () => {
+  beforeEach(() => {
+    // Render the App component before each test
     render(<App />);
+  });
+
+  it('renders with correct heading', () => {
     // Check that the heading is rendered
     expect(screen.getByText('Dictionary')).toBeInTheDocument();
   });
 
   it('renders search results for "example"', async () => {
-    render(<App />);
-
     const inputElement = screen.getByPlaceholderText(
       'Enter a word'
     ) as HTMLInputElement;

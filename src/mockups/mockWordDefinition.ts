@@ -1,5 +1,7 @@
 import { WordDefinition } from '../types/WordDefinitionTypes';
 
+// Lade till den andra filen med mockdata sent och hann inte ändra allt så det här får vara kvar.
+
 export const mockWordDefinition: WordDefinition = {
   word: 'example',
   phonetic: '/ˈɛɡzæmpl/',
